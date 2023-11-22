@@ -3,6 +3,7 @@ export enum AppRoute {
     ProponerTorneo= '/ProponerTorneo',
     InvitarTorneo= '/InvitarTorneo',
     TorneosAbiertos= '/TorneosAbiertos',
+    Home= '/',
   };
   
   

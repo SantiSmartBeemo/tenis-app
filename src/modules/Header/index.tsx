@@ -3,16 +3,19 @@ import { Flex, Text, IconButton, Switch, useBreakpointValue, Box } from '@chakra
 import { RiUserLine } from 'react-icons/ri';
 import { GiTennisRacket } from 'react-icons/gi';
 import { FaSun, FaMoon, FaBars } from "react-icons/fa";
-import Link from 'next/link';
 
 interface HeaderProps {
   changeLight: () => void;
   clickMenu?: () => void;
+  clickHome?: (path: string) => void
   light: boolean;
 }
 
-const Header = ({ changeLight, clickMenu, light }: HeaderProps) => {
+const Header = ({ changeLight, clickMenu, clickHome, light }: HeaderProps) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const handleHome = () => {
+    if (clickHome) clickHome("/");
+  }
 
   return (
     <Flex
@@ -27,19 +30,17 @@ const Header = ({ changeLight, clickMenu, light }: HeaderProps) => {
           as={IconButton}
           mr={"-50px"}
           aria-label="Menu"
-          icon={<FaBars size={20} />}
+          icon={<FaBars size={20} color={light ? 'blue' : 'white'} />}
           variant="ghost"
           onClick={() => {
             if (clickMenu) clickMenu();
           }}
         />
       )}
-      <Link href={'/'}>
-        <Flex alignItems="center" gap={2}>
-          <GiTennisRacket size={30} color={light ? "blue" : "white"} />
-          <Text fontSize="md">Tenis App</Text>
-        </Flex>
-      </Link>
+      <Flex alignItems="center" gap={2} onClick={handleHome}>
+        <GiTennisRacket size={30} color={light ? "blue" : "white"} />
+        <Text fontSize="md">Tenis App</Text>
+      </Flex>
       <Flex alignItems="center">
         <Flex gap={3} alignItems="center">
           {light ? <FaSun size={25} color="yellow" /> : <FaMoon size={25} color="white" />}

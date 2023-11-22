@@ -33,7 +33,7 @@ const HomePage: NextPage = () => {
   return (
     <Box bg={"whiteAlpha.200"} h={"100vh"} bgColor={mode ? "#EBEDEF" :"#1C2833"} color={mode ? "grey" : "white"}>
       <Box position={"fixed"} w={"100vw"} zIndex={"20"}>
-        <Header changeLight={handlechangeLight} clickMenu={handleClickMenu} light={mode}/>
+        <Header changeLight={handlechangeLight} clickMenu={handleClickMenu} clickHome={handlerChangePath} light={mode}/>
       </Box>
       <Flex>
         {!isMobile && (
