@@ -1,4 +1,4 @@
-import { Providers } from '../Pages/Providers'
+import { Providers } from './utils/Providers'
 
 export default function RootLayout({
   children,

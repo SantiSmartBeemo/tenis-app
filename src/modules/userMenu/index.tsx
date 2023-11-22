@@ -17,7 +17,13 @@ const UserMenu = ({light, clickProfile}:UserMenuProps) => {
     setIsOpen(!isOpen);
   };
 
+  const handleClickProfile = () => {
+    setIsOpen(false);
+    clickProfile();
+  }
+
   const handleSignOut = async () => {
+    setIsOpen(false);
     await signOut();
   };
 
@@ -43,7 +49,7 @@ const UserMenu = ({light, clickProfile}:UserMenuProps) => {
             borderRadius="md"
           >
             <VStack alignItems="flex-start" spacing={2}>
-                <Link onClick={clickProfile}>
+                <Link onClick={handleClickProfile}>
                     <Flex alignItems={"center"}>
                         <RiUserLine size={20} color={light ? "blue" : "white"} />
                         <Text ml={2}>{session?.user?.name}</Text>
