@@ -48,7 +48,7 @@ const HomePage: NextPage = () => {
               <SideMenu handleMenuClick={handlerChangePath} isMobile={true} light={mode} />
             </Box>
           ): (
-            <Center mt={"15vh"} ml={isMobile ? "0" : "7vw"}>
+            <Center mt={"15vh"} w={"100vw"} ml={isMobile ? "0" : "70px"}>
               {NewItem}
             </Center>
           )}
