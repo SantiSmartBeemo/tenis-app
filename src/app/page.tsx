@@ -2,8 +2,8 @@
 import { Box, Center, Flex, useBreakpointValue } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
-import Auth from '../components/Auth';
-import Home from '../components/Home';
+import Auth from '../Pages/Auth';
+import Home from '../Pages/Home';
 import Header from '@/modules/Header';
 import { useState } from 'react';
 import SideMenu from '@/modules/SideMenu';
@@ -29,7 +29,6 @@ const HomePage: NextPage = () => {
   };
 
   const isMobile = useBreakpointValue({ base: true, md: false });
-  console.log(NewItem);
 
   return (
     <Box bg={"whiteAlpha.200"} h={"100vh"} bgColor={mode ? "#EBEDEF" :"#1C2833"} color={mode ? "grey" : "white"}>

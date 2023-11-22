@@ -1,10 +1,10 @@
-import MisTorneos from '../modules/MisTorneos';
-import ProponerTorneo from '../modules/ProponerTorneo';
-import InvitarTorneo from '../modules/InvitarTorneo';
-import TorneosAbiertos from '../modules/TorneosAbiertos';
+import MisTorneos from '../Pages/MisTorneos';
+import ProponerTorneo from '../Pages/ProponerTorneo';
+import InvitarTorneo from '../Pages/InvitarTorneo';
+import TorneosAbiertos from '../Pages/TorneosAbiertos';
 import { AppRoute } from './routes';
 
-const ComponentRouter = (path:any) => {
+const ComponentRouter = (path: string) => {
     const currentComponent: { [key: string]: JSX.Element } = {
       [AppRoute.MisTorneos]: <MisTorneos />,
       [AppRoute.ProponerTorneo]: <ProponerTorneo />,
