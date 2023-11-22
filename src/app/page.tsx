@@ -1,56 +1,58 @@
 'use client';
-import { useEffect } from 'react';
-import { Flex, Heading, Text } from '@chakra-ui/react';
+import { Box, Center, Flex, useBreakpointValue } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useSession } from 'next-auth/react';
+import Auth from '../components/Auth';
+import Home from '../components/Home';
+import Header from '@/modules/Header';
+import { useState } from 'react';
+import SideMenu from '@/modules/SideMenu';
+import Router from '../router'
 
 const HomePage: NextPage = () => {
-  const { data: session, status } = useSession();
+  const [NewItem, setNewItem] = useState<any>(<Home />);
+  const [mode, setMode] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
+  const { data: session } = useSession();
 
-  useEffect(() => {
-    if (status === 'loading') return;
+  const handlechangeLight = () => {
+    setMode(!mode);
+  };
 
-    if (!session && status === 'unauthenticated') {
-       window.location.href = '/login';
-    }
-  }, [session, status]);
-
-  if (status === 'loading') {
-    return (
-      <Flex
-        minH="100vh"
-        align="center"
-        justify="center"
-        direction="column"
-        bgGradient="linear(to-r, purple.400, pink.400)"
-        color="white"
-        px={8}
-      >
-        <Text fontSize="xl" textAlign="center" mb={8}>
-          Verificando sesión...
-        </Text>
-      </Flex>
-    );
+  const handleClickMenu = () => {
+    setShowMenu(!showMenu);
   }
 
-  return (
-    <Flex
-      minH="100vh"
-      align="center"
-      justify="center"
-      direction="column"
-      bgGradient="linear(to-r, purple.400, pink.400)"
-      color="white"
-      px={8}
-    >
-      <Heading as="h1" size="2xl" mb={6} textAlign="center">
-        ¡Bienvenido a mi aplicación!
-      </Heading>
+  const handlerChangePath = (path: string) => {
+    setNewItem(Router(path));
+    setShowMenu(false); 
+  };
 
-      <Text fontSize="xl" textAlign="center" mb={8}>
-        Esta es una página de inicio básica creada con Next.js y Chakra UI.
-      </Text>
-    </Flex>
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  console.log(NewItem);
+
+  return (
+    <Box bg={"whiteAlpha.200"} h={"100vh"} bgColor={mode ? "#EBEDEF" :"#1C2833"} color={mode ? "grey" : "white"}>
+      <Box position={"fixed"} w={"100vw"} zIndex={"20"}>
+        <Header changeLight={handlechangeLight} clickMenu={handleClickMenu} light={mode}/>
+      </Box>
+      <Flex>
+        {!isMobile && (
+          <Box zIndex={"1"}>
+            <SideMenu handleMenuClick={handlerChangePath} light={mode} />
+          </Box>
+        )}
+        {isMobile && showMenu ? (
+          <Box zIndex={"1"}>
+            <SideMenu handleMenuClick={handlerChangePath} isMobile={true} light={mode} />
+          </Box>
+        ): (
+          <Center mt={"15vh"} ml={isMobile ? "0" : "7vw"}>
+            {session?.user ? NewItem : <Auth/>}
+          </Center>
+        )}
+      </Flex>
+    </Box>
   );
 };
 
