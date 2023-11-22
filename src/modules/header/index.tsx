@@ -1,20 +1,27 @@
 'use client';
+import UserMenu from '../userMenu';
 import { Flex, Text, IconButton, Switch, useBreakpointValue, Box } from '@chakra-ui/react';
 import { RiUserLine } from 'react-icons/ri';
 import { GiTennisRacket } from 'react-icons/gi';
 import { FaSun, FaMoon, FaBars } from "react-icons/fa";
+import { useState } from 'react';
 
 interface HeaderProps {
   changeLight: () => void;
   clickMenu?: () => void;
-  clickHome?: (path: string) => void
+  clickRoute?: (path: string) => void
   light: boolean;
 }
 
-const Header = ({ changeLight, clickMenu, clickHome, light }: HeaderProps) => {
+const Header = ({ changeLight, clickMenu, clickRoute, light }: HeaderProps) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  
+  const handleProfile = () => {
+    if (clickRoute) clickRoute("/Profile");
+  }
+
   const handleHome = () => {
-    if (clickHome) clickHome("/");
+    if (clickRoute) clickRoute("/");
   }
 
   return (
@@ -51,13 +58,7 @@ const Header = ({ changeLight, clickMenu, clickHome, light }: HeaderProps) => {
             size="md"
           />
         </Flex>
-        <IconButton
-          aria-label="Usuario"
-          _hover={{ bg: 'blue.600' }}
-          icon={<RiUserLine size={20} color={light ? "blue" : "white"} />}
-          variant="ghost"
-          mr={4}
-        />
+        <UserMenu clickProfile={handleProfile} light={light} />
       </Flex>
     </Flex>
   );

@@ -5,6 +5,7 @@ import ProponerTorneo from '../Pages/ProponerTorneo';
 import InvitarTorneo from '../Pages/InvitarTorneo';
 import TorneosAbiertos from '../Pages/TorneosAbiertos';
 import Home from '../Pages/Home';
+import Profile from '@/Pages/Profile';
 
 const ComponentRouter = (path: string) => {
     const currentComponent: { [key: string]: JSX.Element } = {
@@ -13,6 +14,7 @@ const ComponentRouter = (path: string) => {
       [AppRoute.InvitarTorneo]: <PrivateRoutes component={InvitarTorneo}/>,
       [AppRoute.TorneosAbiertos]: <PrivateRoutes component={TorneosAbiertos}/>,
       [AppRoute.Home]: <PrivateRoutes component={Home}/>,
+      [AppRoute.Perfil]: <PrivateRoutes component={Profile}/>,
     };
   
     const item = currentComponent[path];

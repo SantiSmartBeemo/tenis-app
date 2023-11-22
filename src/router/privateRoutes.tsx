@@ -15,10 +15,12 @@ const PrivateRoutes = ({ component: Component, roles }: PrivateRoutesProps) => {
 
   const userRoles = session.user?.roles || [];
 
-  const hasPermission = roles.every(role => userRoles.includes(role));
+  if (roles?.length === 0) {
+    const hasPermission = roles?.every(role => userRoles.includes(role));
 
-  if (!hasPermission) {
-    return <div>No autorizado</div>;
+    if (!hasPermission) {
+        return <div>No autorizado</div>;
+    }
   }
 
   return <Component />;

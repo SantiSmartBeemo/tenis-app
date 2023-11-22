@@ -1,6 +1,4 @@
 
-import React from 'react';
-
 const MisTorneos: React.FC = () => {
   return (
     <div>
