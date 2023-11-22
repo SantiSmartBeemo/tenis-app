@@ -1,56 +1,78 @@
 import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone'
+import { startStandaloneServer } from '@apollo/server/standalone';
 
-// A schema is a collection of type definitions (hence "typeDefs")
-// that together define the "shape" of queries that are executed against
-// your data.
-const typeDefs = `#graphql
-  # Comments in GraphQL strings (such as this one) start with the hash (#) symbol.
+const typeDefs = `
+    type User {
+        id: String!
+        username: String
+        name: String!
+        email: String!
+        image: String
+    }
 
-  # This "Book" type defines the queryable fields for every book in our data source.
-  type Book {
-    title: String
-    author: String
-  }
+    type Turnament {
+        id: String!
+        name: String!
+        description: String!
+        image: String
+        date: String!
+        time: String!
+        location: String!
+        players: [User!]!
+        creator: User!
+        createdAt: String!
+        updatedAt: String!
+    }
 
-  # The "Query" type is special: it lists all of the available queries that
-  # clients can execute, along with the return type for each. In this
-  # case, the "books" query returns an array of zero or more Books (defined above).
-  type Query {
-    books: [Book]
-  }
+    type CreateUsernameResponse {
+        success: Boolean!
+        error: String
+    }
+
+    type Query {
+        searchUsers(id: String): [User!]!
+    }
+
+    type Mutation {
+        createUsername(username: String!): User!
+    }
+
+    type Subscription {
+        turnamentAdded(id: String!): Turnament!
+    }
 `;
 
-const books = [
-  {
-    title: 'The Awakening',
-    author: 'Kate Chopin',
-  },
-  {
-    title: 'City of Glass',
-    author: 'Paul Auster',
-  },
-];
-
-// Resolvers define the technique for fetching the types defined in the
-// schema. This resolver retrieves books from the "books" array above.
 const resolvers = {
-  Query: {
-    books: () => books,
-  },
+    Query: {
+        searchUsers: () => {
+            console.log('searchUsers');
+            // Aquí iría la lógica para buscar usuarios
+        },
+    },
+    Mutation: {
+        createUsername: () => {
+            console.log('createUsername');
+            // Aquí iría la lógica para crear un nombre de usuario
+        },
+    },
+    Subscription: {
+        turnamentAdded: {
+            subscribe: () => {
+                console.log('turnamentAdded');
+                // Aquí iría la lógica para la suscripción turnamentAdded
+            }
+        }
+    },
 };
 
-// The ApolloServer constructor requires two parameters: your schema
-// definition and your set of resolvers.
 const server = new ApolloServer({
-  typeDefs,
-  resolvers,
+    typeDefs,
+    resolvers,
 });
 
-// Passing an ApolloServer instance to the `startStandaloneServer` function:
-//  1. creates an Express app
-//  2. installs your ApolloServer instance as middleware
-//  3. prepares your app to handle incoming requests
-const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });
+const startServer = async () => {
+    const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });
+    console.log(`🚀 Server listening at: ${url}`);
+};
 
-console.log(`🚀 Server listening at: ${url}`);
+startServer();

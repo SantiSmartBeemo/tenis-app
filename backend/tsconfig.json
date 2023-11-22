@@ -4,9 +4,16 @@
       "outDir": "dist",
       "lib": ["es2020"],
       "target": "es2020",
-      "module": "esnext",
+      "module": "CommonJS",
       "moduleResolution": "node",
       "esModuleInterop": true,
-      "types": ["node"]
+      "forceConsistentCasingInFileNames": true,
+      "noFallthroughCasesInSwitch": true,
+      "isolatedModules": false,
+      "strict": true,
+      "noImplicitAny": true,
+      "useUnknownInCatchVariables": false,
+      "inlineSourceMap": true,
+      "types": ["node"],
     }
   }
