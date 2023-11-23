@@ -13,10 +13,17 @@
   "license": "ISC",
   "dependencies": {
     "@apollo/server": "^4.9.5",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
     "graphql": "^16.8.1",
-    "lodash.merge": "^4.6.2"
+    "http": "^0.0.1-security",
+    "lodash.merge": "^4.6.2",
+    "next-auth": "^4.24.5"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/lodash.merge": "^4.6.9",
     "@types/node": "^20.9.4",
     "nodemon": "^3.0.1",

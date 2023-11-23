@@ -1,5 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import { Session } from 'next-auth';
+import { getSession } from 'next-auth/react';
 
 const typeDefs = `
     type User {
@@ -34,7 +36,7 @@ const typeDefs = `
     }
 
     type Mutation {
-        createUsername(username: String!): User!
+        createUsername(username: String!): CreateUsernameResponse!
     }
 
     type Subscription {
@@ -45,13 +47,14 @@ const typeDefs = `
 const resolvers = {
     Query: {
         searchUsers: () => {
-            console.log('searchUsers');
+            console.log('searchUsersssss');
             // Aquí iría la lógica para buscar usuarios
         },
     },
     Mutation: {
-        createUsername: () => {
-            console.log('createUsername');
+        createUsername: (_: any, args:{ username:string }, context: any) => {
+            const { username } = args;
+            console.log('createUsername', context.session);
             // Aquí iría la lógica para crear un nombre de usuario
         },
     },
@@ -71,8 +74,15 @@ const server = new ApolloServer({
 });
 
 const startServer = async () => {
-    const { url } = await startStandaloneServer(server, { listen: { port: 4000 } });
+    const { url } = await startStandaloneServer(server, { 
+        context: async ({ req, res }) => ({
+            session: await getSession({ req }),
+        }),
+        listen: { port: 4000 }}
+        );
     console.log(`🚀 Server listening at: ${url}`);
 };
+
+
 
 startServer();

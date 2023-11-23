@@ -5,8 +5,7 @@ import { createClient } from 'graphql-ws';
 
 const httpLink = new HttpLink({
   uri: 'http://localhost:4000/graphql',
-  credentials: 'include',
-});
+}); 
 
 const wsLink = new GraphQLWsLink(createClient({
   url: 'ws://localhost:4000/subscriptions',
@@ -28,3 +27,4 @@ export const client = new ApolloClient({
   link: splitLink,
   cache: new InMemoryCache(),
 });
+
